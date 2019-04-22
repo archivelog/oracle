@@ -1,0 +1,6 @@
+select * from
+(select sql_text,row_number() over(partition by FORCE_MATCHING_SIGNATURE order by FORCE_MATCHING_SIGNATURE) rn
+from v$sql
+where FORCE_MATCHING_SIGNATURE >0
+and FORCE_MATCHING_SIGNATURE !=EXACT_MATCHING_SIGNATURE)
+where rn>10;
